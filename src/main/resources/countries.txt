@@ -1,0 +1,25 @@
+IT,Italy,Europe
+JP,Japan,Asia
+US,United States of America,Americas
+CA,Canada,Americas
+CN,China,Asia
+IN,India,Asia
+AU,Australia,Asia
+ZW,Zimbabwe,Middle East and Africa
+SG,Singapore,Asia
+UK,United Kingdom,Europe
+FR,France,Europe
+DE,Germany,Europe
+ZM,Zambia,Middle East and Africa
+EG,Egypt,Middle East and Africa
+BR,Brazil,Americas
+CH,Switzerland,Europe
+NL,Netherlands,Europe
+MX,Mexico,Americas
+KW,Kuwait,Middle East and Africa
+IL,Israel,Middle East and Africa
+DK,Denmark,Europe
+HK,HongKong,Asia
+NG,Nigeria,Middle East and Africa
+AR,Argentina,Americas
+BE,Belgium,Europe
