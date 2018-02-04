@@ -15,7 +15,6 @@ public class Employee {
 
 	private String phoneNumber;
 
-	// private Date hireDate;
 	private LocalDate hireDate;
 
 	private String jobId;
@@ -34,8 +33,8 @@ public class Employee {
 
 	public Employee(String employeeRecord) {
 		String[] tokens = employeeRecord.split(",");
-//		for (int i = 0; i < tokens.length; i++)
-//			System.out.println(i + " = " + tokens[i] + ".");
+		// for (int i = 0; i < tokens.length; i++)
+		// System.out.println(i + " = " + tokens[i] + ".");
 		this.employeeId = Long.parseLong(tokens[0]);
 		this.firstName = tokens[1];
 		this.lastName = tokens[2];
@@ -49,12 +48,55 @@ public class Employee {
 		this.departmentName = (tokens[10] != null && !tokens[10].trim().equals("")) ? tokens[10] : null;
 	}
 
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public LocalDate getHireDate() {
+		return hireDate;
+	}
+
+	public String getJobId() {
+		return jobId;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public Float getCommissionPct() {
+		return commissionPct;
+	}
+
+	public Long getManagerId() {
+		return managerId;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
 	@Override
 	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", phoneNumber=" + phoneNumber + ", hireDate=" + hireDate + ", jobId=" + jobId + ", salary="
-				+ salary + ", commissionPct=" + commissionPct + ", managerId=" + managerId + ", departmentName="
-				+ departmentName + "]";
+		// return "[" + employeeId + " :: " + firstName + " " + lastName + " ::
+		// " + departmentName + "]";
+		return "" + employeeId;
 	}
 
 }
