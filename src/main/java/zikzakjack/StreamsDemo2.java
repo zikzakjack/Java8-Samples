@@ -115,6 +115,8 @@ public class StreamsDemo2 {
 		 * Partitioning Examples - *
 		 *************************************************************************/
 
+		
+		
 	}
 
 	private static Stream<Employee> getEmployeeStream() throws IOException, URISyntaxException {
