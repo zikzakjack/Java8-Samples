@@ -1,6 +1,7 @@
 package zikzakjack;
 
 import java.util.Optional;
+import java.util.Properties;
 
 public class OptionalDemo {
 
@@ -69,8 +70,42 @@ public class OptionalDemo {
 		insurance3.setNameOpt("NewName");
 		insuranceName = personOpt3.flatMap(PersonOpt::getCarOpt).flatMap(CarOpt::getInsuranceOpt).map(InsuranceOpt::getNameOpt).orElse("UNKNOWN");
 		System.out.println("insuranceName : " + insuranceName);
+
+		/*************************************************************
+		 * Putting it all together
+		 *************************************************************/
+		System.out.println("\n* Putting it all together");
+		Properties props = new Properties();
+		props.setProperty("a", "5");
+		props.setProperty("b", "true");
+		props.setProperty("c", "-3");
+		System.out.println("Output : " + readDuration(props,"a"));
+		System.out.println("Output : " + readDuration(props,"b"));
+		System.out.println("Output : " + readDuration(props,"c"));
 	}
 
+	/**
+	 * Return a positive integer only for a valid String representing a positive
+	 * integer, otherwise return zero
+	 * 
+	 * @param props
+	 * @param name
+	 * @return
+	 */
+	public static int readDuration(Properties props, String name) {
+		return Optional.ofNullable(props.get(name)).map(o -> (String) o).flatMap(OptionalUtil::stringToInt)
+				.filter(i -> i > 0).orElse(0);
+	}
+}
+
+class OptionalUtil {
+	public static Optional<Integer> stringToInt(String s) {
+		try {
+			return Optional.of(Integer.parseInt(s));
+		} catch (Exception e) {
+			return Optional.empty();
+		}
+	}
 }
 
 class Person {
@@ -108,3 +143,4 @@ class InsuranceOpt {
 	public String getNameOpt() {return nameOpt;}
 	public void setNameOpt(String nameOpt) {this.nameOpt = nameOpt;}
 }
+
