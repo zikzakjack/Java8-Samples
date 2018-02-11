@@ -49,6 +49,7 @@ public class OptionalDemo {
 
 		Optional<InsuranceOpt> insuranceOpt3 = Optional.of(insurance3);
 		Optional<CarOpt> carOpt3 = Optional.of(car3);
+		Optional<PersonOpt> personOpt3 = Optional.of(person3);
 		
 		car3.setInsuranceOpt(insuranceOpt3);
 		person3.setCarOpt(carOpt3);
@@ -57,6 +58,17 @@ public class OptionalDemo {
 		System.out.println(insuranceOpt3.map(InsuranceOpt::getNameOpt));
 		insurance3.setNameOpt(null);
 		System.out.println(insuranceOpt3.map(InsuranceOpt::getNameOpt));
+
+		/*************************************************************
+		 * Chaining Optional objects with flatMap
+		 *************************************************************/
+		System.out.println("\n* Chaining Optional objects with flatMap");
+		String insuranceName = personOpt3.flatMap(PersonOpt::getCarOpt).flatMap(CarOpt::getInsuranceOpt).map(InsuranceOpt::getNameOpt).orElse("UNKNOWN");
+		System.out.println("insuranceName : " + insuranceName);
+		// reset as we need the data again
+		insurance3.setNameOpt("NewName");
+		insuranceName = personOpt3.flatMap(PersonOpt::getCarOpt).flatMap(CarOpt::getInsuranceOpt).map(InsuranceOpt::getNameOpt).orElse("UNKNOWN");
+		System.out.println("insuranceName : " + insuranceName);
 	}
 
 }
