@@ -17,23 +17,21 @@ public class CompletableFuturesDemo {
 
 	public static void main(String[] args) {
 
-		System.out.println("\n********** findPriceAsyncHandyFactory **********\n");
-		findPriceAsyncHandyFactory();
-
 		System.out.println("\n********** findPriceAsync **********\n");
 		findPriceAsync();
 
+		System.out.println("\n********** findPriceAsyncHandyFactory **********\n");
+		findPriceAsyncHandyFactory();
+
 		System.out.println("\n********** findPricesSequential **********\n");
-		long start = System.nanoTime();
-		System.out.println(findPricesSequential("myPhone27S"));
-		long duration = (System.nanoTime() - start) / 1_000_000;
-		System.out.println("Done in " + duration + " msecs");
+		findPricesSequentialStream("myPhone27S");
 
 		System.out.println("\n********** findPricesParallel **********\n");
-		long start1 = System.nanoTime();
-		System.out.println(findPricesParallel("myPhone27S"));
-		long duration1 = (System.nanoTime() - start1) / 1_000_000;
-		System.out.println("Done in " + duration1 + " msecs");
+		findPricesParallelStream("myPhone27S");
+
+		System.out.println("\n********** findPricesASyncAndSequential **********\n");
+		findPricesCompletableFuture("myPhone27S");
+
 	}
 
 	private static void findPriceAsync() {
@@ -49,7 +47,6 @@ public class CompletableFuturesDemo {
 			double price = futurePrice.get();
 			System.out.printf("Price is %.2f %n", price);
 		} catch (InterruptedException | ExecutionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -70,7 +67,6 @@ public class CompletableFuturesDemo {
 			double price = futurePrice.get();
 			System.out.printf("Price is %.2f %n", price);
 		} catch (InterruptedException | ExecutionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -83,15 +79,36 @@ public class CompletableFuturesDemo {
 		DelayUtil.delay(1000L);
 	}
 
-	public static List<String> findPricesSequential(String product) {
-		return shops.stream().map(shop -> String.format("%s price is %.2f", shop.getName(), shop.getPrice(product)))
-				.collect(toList());
-	}
-
-	public static List<String> findPricesParallel(String product) {
-		return shops.parallelStream()
+	public static void findPricesSequentialStream(String product) {
+		long start = System.nanoTime();
+		List<String> prices = shops.stream()
 				.map(shop -> String.format("%s price is %.2f", shop.getName(), shop.getPrice(product)))
 				.collect(toList());
+		System.out.println(prices);
+		long duration = (System.nanoTime() - start) / 1_000_000;
+		System.out.println("Done in " + duration + " msecs");
+	}
+
+	public static void findPricesParallelStream(String product) {
+		long start = System.nanoTime();
+		List<String> prices = shops.parallelStream()
+				.map(shop -> String.format("%s price is %.2f", shop.getName(), shop.getPrice(product)))
+				.collect(toList());
+		System.out.println(prices);
+		long duration = (System.nanoTime() - start) / 1_000_000;
+		System.out.println("Done in " + duration + " msecs");
+	}
+
+	public static void findPricesCompletableFuture(String product) {
+		long start = System.nanoTime();
+		List<CompletableFuture<String>> priceFutures = shops.stream()
+				.map(shop -> CompletableFuture
+						.supplyAsync(() -> String.format("%s price is %.2f", shop.getName(), shop.getPrice(product))))
+				.collect(toList());
+		List<String> prices = priceFutures.stream().map(CompletableFuture::join).collect(toList());
+		System.out.println(prices);
+		long duration = (System.nanoTime() - start) / 1_000_000;
+		System.out.println("Done in " + duration + " msecs");
 	}
 
 }
