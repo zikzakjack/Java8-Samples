@@ -2,6 +2,7 @@ package zikzakjack;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.temporal.ChronoField;
@@ -45,8 +46,21 @@ public class NewDateTimeDemo {
 		System.out.println("hours = " + hours);
 		System.out.println("minutes = " + minutes);
 		System.out.println("seconds = " + seconds);
+		System.out.println("hours (Using ChronoField) = " + time.get(ChronoField.HOUR_OF_DAY));
+		System.out.println("minutes (Using ChronoField) = " + time.get(ChronoField.MINUTE_OF_HOUR));
+		System.out.println("seconds (Using ChronoField) = " + time.get(ChronoField.SECOND_OF_MINUTE));
 
-		System.out.println("\n********** LocalDateTime **********\n");
+		System.out.println("\n********** LocalDateTime : represents both a date and a time, without a time zone, and can be created either directly or by combining a date and time **********\n");
+		LocalDateTime dt1 = LocalDateTime.of(2014, Month.MARCH, 18, 13, 45, 20);
+		LocalDateTime dt2 = LocalDateTime.of(date, time);
+		LocalDateTime dt3 = date.atTime(13, 45, 20);
+		LocalDateTime dt4 = date.atTime(time);
+		LocalDateTime dt5 = time.atDate(date);
+		System.out.println("dt1 = " + dt1);
+		System.out.println("dt2 = " + dt2);
+		System.out.println("dt3 = " + dt3);
+		System.out.println("dt4 = " + dt4);
+		System.out.println("dt5 = " + dt5);
 
 		System.out.println("\n********** Instant **********\n");
 
