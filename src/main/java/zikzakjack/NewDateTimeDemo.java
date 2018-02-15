@@ -1,11 +1,15 @@
 package zikzakjack;
 
 import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.Period;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 
 public class NewDateTimeDemo {
 
@@ -51,6 +55,7 @@ public class NewDateTimeDemo {
 		System.out.println("seconds (Using ChronoField) = " + time.get(ChronoField.SECOND_OF_MINUTE));
 
 		System.out.println("\n********** LocalDateTime : represents both a date and a time, without a time zone, and can be created either directly or by combining a date and time **********\n");
+		System.out.println("LocalDateTime.now() = " + LocalDateTime.now());
 		LocalDateTime dt1 = LocalDateTime.of(2014, Month.MARCH, 18, 13, 45, 20);
 		LocalDateTime dt2 = LocalDateTime.of(date, time);
 		LocalDateTime dt3 = date.atTime(13, 45, 20);
@@ -62,12 +67,34 @@ public class NewDateTimeDemo {
 		System.out.println("dt4 = " + dt4);
 		System.out.println("dt5 = " + dt5);
 
-		System.out.println("\n********** Instant **********\n");
+		System.out.println("\n********** Instant : represents the number of seconds passed since the Unix epoch time **********\n");
+		System.out.println("Instant.now() = " + Instant.now());
+		System.out.println("Instant.ofEpochSecond(3) = " + Instant.ofEpochSecond(3));
+		System.out.println("Instant.ofEpochSecond(3,4) = " + Instant.ofEpochSecond(3,4));
+		System.out.println("Instant.ofEpochSecond(3,1_000_000_000) = " + Instant.ofEpochSecond(3,1_000_000_000));
+		System.out.println("Instant.ofEpochSecond(3,-1_000_000_000) = " + Instant.ofEpochSecond(3,-1_000_000_000));
 
-		System.out.println("\n********** Duration **********\n");
+		System.out.println("\n********** Duration : Time elapsed between two LocalTime / LocalDateTime / Instant **********\n");
+		Duration d1 = Duration.between(time, LocalTime.now());
+		Duration d2 = Duration.between(dt1, LocalDateTime.now());
+		Duration d3 = Duration.between(Instant.ofEpochSecond(3), Instant.now());
+		Duration threeMinutes = Duration.ofMinutes(3);
+		Duration threeMinutes1 = Duration.of(3, ChronoUnit.MINUTES);
+		System.out.println("d1 = " + d1);
+		System.out.println("d2 = " + d2);
+		System.out.println("d3 = " + d3);
+		System.out.println("threeMinutes = " + threeMinutes);
+		System.out.println("threeMinutes1 = " + threeMinutes1);
 
-		System.out.println("\n********** Period **********\n");
-
+		System.out.println("\n********** Period : Days/Months/Years elapsed between two LocalDate **********\n");
+		Period tenDays = Period.between(LocalDate.of(2014, 3, 8), LocalDate.of(2014, 3, 18));
+		Period tenDays1 = Period.ofDays(10);
+		Period threeWeeks = Period.ofWeeks(3);
+		Period twoYearsSixMonthsOneDay = Period.of(2, 6, 1);
+		System.out.println("tenDays = " + tenDays);
+		System.out.println("tenDays1 = " + tenDays1);
+		System.out.println("threeWeeks = " + threeWeeks);
+		System.out.println("twoYearsSixMonthsOneDay = " + twoYearsSixMonthsOneDay);
 	}
 
 }
