@@ -8,8 +8,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 
 public class NewDateTimeDemo {
 
@@ -95,6 +97,52 @@ public class NewDateTimeDemo {
 		System.out.println("tenDays1 = " + tenDays1);
 		System.out.println("threeWeeks = " + threeWeeks);
 		System.out.println("twoYearsSixMonthsOneDay = " + twoYearsSixMonthsOneDay);
+		
+		System.out.println("\n********** Manipulating, parsing, and formatting dates **********");
+		System.out.println("\n********** Manipulating the attributes of a LocalDate in an absolute way **********\n");
+		LocalDate date1 = LocalDate.of(2014, 3, 18);
+		LocalDate date2 = date1.withYear(2011);
+		LocalDate date3 = date2.withDayOfMonth(25);
+		LocalDate date4 = date3.with(ChronoField.MONTH_OF_YEAR, 9);
+		System.out.println("date1 = " + date1);
+		System.out.println("date2 = " + date2);
+		System.out.println("date3 = " + date3);
+		System.out.println("date4 = " + date4);
+
+		System.out.println("\n********** Manipulating the attributes of a LocalDate in a relative way **********\n");
+		LocalDate date11 = LocalDate.of(2014, 3, 18);
+		LocalDate date12 = date11.plusWeeks(1);
+		LocalDate date13 = date12.minusYears(3);
+		LocalDate date14 = date13.plus(6,ChronoUnit.MONTHS);
+		System.out.println("date11 = " + date11);
+		System.out.println("date12 = " + date12);
+		System.out.println("date13 = " + date13);
+		System.out.println("date14 = " + date14);
+
+		System.out.println("\n********** Using the predefined TemporalAdjusters **********\n");
+		LocalDate date21 = LocalDate.of(2014, 3, 18);
+		LocalDate date22 = date21.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+		LocalDate date23 = date22.with(TemporalAdjusters.lastDayOfMonth());
+		System.out.println("date21 = " + date21);
+		System.out.println("date22 = " + date22);
+		System.out.println("date23 = " + date23);
+
+		System.out.println("\n********** Printing and parsing date-time objects **********\n");
+		System.out.println(date21.format(DateTimeFormatter.BASIC_ISO_DATE));
+		System.out.println(date21.format(DateTimeFormatter.ISO_LOCAL_DATE));
+		LocalDate date31 = LocalDate.parse("20140402",DateTimeFormatter.BASIC_ISO_DATE);
+		LocalDate date32 = LocalDate.parse("2014-04-02",DateTimeFormatter.ISO_LOCAL_DATE);
+		System.out.println("date31 = " + date31);
+		System.out.println("date32 = " + date32);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate date33 = LocalDate.of(2014, 3, 18);
+		String formattedDate = date33.format(formatter);
+		LocalDate date34 = LocalDate.parse(formattedDate, formatter);
+		System.out.println("date33 = " + date33);
+		System.out.println("formattedDate = " + formattedDate);
+		System.out.println("date34 = " + date34);
+
 	}
 
 }
