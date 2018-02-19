@@ -29,7 +29,7 @@ public class CompletableFuturesDemo {
 		System.out.println("\n********** findPricesParallel **********\n");
 		findPricesParallelStream("myPhone27S");
 
-		System.out.println("\n********** findPricesASyncAndSequential **********\n");
+		System.out.println("\n********** findPricesCompletableFuture **********\n");
 		findPricesCompletableFuture("myPhone27S");
 
 	}
